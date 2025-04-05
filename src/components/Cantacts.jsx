@@ -4,6 +4,7 @@ import { useState } from "react";
 import CantactList from "./CantactList";
 import inputs from "../constant/inputs";
 import { v4 as uuidv4 } from 'uuid';
+import styles from "./Cantact.module.css"
 
 function Cantacts() {
   const [cantact, setCantact] = useState({
@@ -44,9 +45,15 @@ function Cantacts() {
     const value = event.target.value;
     setCantact((cantact) => ({ ...cantact, [name]: value }));
   };
+
+  const deleteHandler=(id)=>{
+    const newCantacts = cantacts.filter(cantact=> (cantact.id !== id))
+    setCantacts(newCantacts)
+  }
   return (
     <>
-      <div>
+      <div className={styles.container}>
+        <div className={styles.form}>
         {inputs.map((input, index) => (
           <input
             key={index}
@@ -59,8 +66,9 @@ function Cantacts() {
         ))}
 
         <button onClick={addHandler}>AddHandler</button>
-        <CantactList cantacts={cantacts} />
-        <div>{alert && <p>{alert}</p>}</div>
+        </div>
+        <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
+        <CantactList cantacts={cantacts} deleteHandler={deleteHandler}/>
       </div>
     </>
   );

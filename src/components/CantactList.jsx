@@ -1,32 +1,22 @@
 // import React from "react";
+import CantactItem from "./CantactItem";
+import styles from "./CantactList.module.css"
 
-function CantactList({cantacts=[]}) {
+function CantactList({cantacts=[],deleteHandler}) {
   console.log(cantacts);
+  console.log(deleteHandler);
+  
   return (
-    <div>
+    <div className={styles.container}>
       <h3>Cantacts List</h3>
       {cantacts.length ? (
-        <ul>
+        <ul className={styles.cantacts}>
           {cantacts.map((cantact) => (
-            <li key={cantact.id}>
-              <p>
-                {cantact.name}
-                {cantact.lastName}
-              </p>
-              <p>
-                <span>💻</span>
-                {cantact.email}
-              </p>
-              <p>
-                <span>📞</span>
-                {cantact.phone}
-              </p>
-              <button>🗑</button>
-            </li>
+            <CantactItem key={cantact.id} data={cantact} deleteHandler={deleteHandler}/>
           ))}
         </ul>
       ) : (
-        <p>No Cantacts Yet!</p>
+        <p className={styles.message}>No Cantacts Yet!</p>
       )}
     </div>
   );
